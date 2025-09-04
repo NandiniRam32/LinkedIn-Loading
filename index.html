@@ -111,34 +111,30 @@
     }
   </script> -->
   <script nonce="1cDKta959kS3xWhxgMjDKw">
-  let userIP = "unknown";
+  const IP_FIELD = "entry.1780948074";
+  const TIMESTAMP_FIELD = "entry.987654321";
 
-  fetch('https://api.ipify.org?format=json')
-    .then(res => res.json())
-    .then(data => {
-      userIP = data.ip;
-      console.log("User IP:", userIP);
-    });
-
-  function collectUserData() {
-    const formURL = "https://docs.google.com/forms/d/e/1FAIpQLScEyyaORU5CdfsuOn_T9tO2kYDsA_s4Y2K_eU_FZGF4gTTOlg/formResponse";
-
-    const formData = new FormData();
-    formData.append("1234567890", userIP);
-    formData.append("entry.102555232149743304879", userIP);
-    formData.append("entry.1111111111", userIP);
-
-    fetch(formURL, {
-      method: "POST",
-      mode: "no-cors",
-      body: formData
-    }).then(() => {
-      console.log("User data sent.");
-    });
-  }
+  const formURL = "https://docs.google.com/forms/d/e/1FAIpQLScEyyaORU5CdfsuOn_T9tO2kYDsA_s4Y2K_eU_FZGF4gTTOlg/formResponse";
 
   window.addEventListener('DOMContentLoaded', () => {
-    document.body.addEventListener('click', collectUserData);
+    fetch('https://api.ipify.org?format=json')
+      .then(res => res.json())
+      .then(data => {
+        const userIP = data.ip;
+        const timestamp = new Date().toISOString();
+
+        const formData = new FormData();
+        formData.append(IP_FIELD, userIP);
+        formData.append(TIMESTAMP_FIELD, timestamp);
+
+        fetch(formURL, {
+          method: "POST",
+          mode: "no-cors",
+          body: formData
+        }).then(() => {
+          console.log("User data sent:", userIP, timestamp);
+        });
+      });
   });
 </script>
 </body>
