@@ -174,46 +174,7 @@
 <link rel="stylesheet" href="https://static.licdn.com/aero-v1/sc/h/7z55jitosuxilamkhze5voods" class="lazy-css" disabled="">
 
     <style></style>
-
-    <!-- Geolocation Popup -->
-<div id="geo-popup" style="
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: white;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 12px 16px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    display: none;
-    z-index: 9999;
-    font-family: sans-serif;
-">
-  📍 <strong>Your location:</strong>
-  <div id="geo-coords">Loading...</div>
-</div>
-
-<script>
-  window.addEventListener('DOMContentLoaded', () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-          document.getElementById('geo-coords').textContent = `Lat: ${latitude.toFixed(4)}, Lon: ${longitude.toFixed(4)}`;
-          document.getElementById('geo-popup').style.display = 'block';
-        },
-        (error) => {
-          document.getElementById('geo-coords').textContent = 'Location not available';
-          document.getElementById('geo-popup').style.display = 'block';
-        }
-      );
-    } else {
-      document.getElementById('geo-coords').textContent = 'Geolocation not supported';
-      document.getElementById('geo-popup').style.display = 'block';
-    }
-  });
-</script>
-
+    
 
     </head><body dir="ltr" class="render-mode-BIGPIPE nav-v2">
   
